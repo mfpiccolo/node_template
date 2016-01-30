@@ -1,0 +1,12 @@
+{
+  "name": "adfan",
+  "version": "0.0.1",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "components"
+  ],
+  "devDependencies": {
+    "bootstrap-sass": "^3.3.6"
+  }
+}

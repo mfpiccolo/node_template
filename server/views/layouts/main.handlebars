@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <title>{{appName }}</title>
+    <link rel="shortcut icon" href="favicon.ico">
+    <link rel="stylesheet" href="/styles/{{rev-style }}">
+  {{#if ENV_DEVELOPMENT}}
+      <script src="http://localhost:35729/livereload.js"></script>
+  {{/if}}
+</head>
+<body>
+
+{{{body}}}
+
+<script src="/scripts/{{rev-vendor }}"></script>
+<script src="/scripts/{{rev-app }}"></script>
+</body>
+</html>

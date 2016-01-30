@@ -1,26 +1,5 @@
 @import "../../bower_components/bootstrap-sass/assets/stylesheets/bootstrap";
 
-body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-}
-
-a {
-  color: #00B7FF;
-}
-
-@keyframes hover {
-  0% {
-    color: red;
-  }
-  100%{
-    color: green;
-  }
-}
-
-.Home__Class {
-  display: flex;
-  transition: 400ms ease;
-  transform: scale(0.5);
-  animation: hover;
+h1 {
+  color: #1b6d85;
 }

@@ -4,7 +4,7 @@
 
 NodeJs version ~5.3.0
 
-`npm install && npm run bower`
+Run `npm install && npm run bower`
 
 ## Development
 

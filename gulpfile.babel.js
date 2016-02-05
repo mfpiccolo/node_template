@@ -34,7 +34,7 @@ const vendorScripts = [
 const stylesSrcFolder = `${sourceFolder}/styles`;
 const stylesDestFolder = `${publicFolder}/styles`;
 
-const isThisProduction = () => env === 'production';
+const isProduction = () => env === 'production';
 
 const getRevManifestPath = key => `rev-manifest-${key}.json`;
 
@@ -57,19 +57,19 @@ gulp.task('cleanup', cleanup);
 const buildSass = () => promisifyTask(
   gulp.src(`${stylesSrcFolder}/*.scss`)
     .pipe(plumber())
-    .pipe(gulpif(!isThisProduction(), sourcemaps.init()))
+    .pipe(gulpif(!isProduction(), sourcemaps.init()))
     .pipe(sass())
-    .pipe(gulpif(isThisProduction(), cssnano({
+    .pipe(gulpif(isProduction(), cssnano({
       autoprefixer: {
         browsers: ['last 2 versions'],
         cascade: false,
       },
     })))
     .pipe(sourcemaps.write('.'))
-    .pipe(gulpif(isThisProduction(), rev()))
+    .pipe(gulpif(isProduction(), rev()))
     .pipe(gulp.dest(stylesDestFolder))
-    .pipe(gulpif(isThisProduction(), rev.manifest(getRevManifestPath('style'))))
-    .pipe(gulpif(isThisProduction(), gulp.dest(configFolder)))
+    .pipe(gulpif(isProduction(), rev.manifest(getRevManifestPath('style'))))
+    .pipe(gulpif(isProduction(), gulp.dest(configFolder)))
     .pipe(livereload())
 );
 
@@ -80,17 +80,17 @@ const babelify = () => promisifyTask(
     .pipe(plumber())
     .pipe(eslint())
     .pipe(eslint.format())
-    .pipe(gulpif(!isThisProduction(), sourcemaps.init()))
+    .pipe(gulpif(!isProduction(), sourcemaps.init()))
     .pipe(babel({
       presets: ['es2015', 'stage-3'],
     }))
     .pipe(sourcemaps.write('.'))
-    .pipe(gulpif(isThisProduction(), concat('app.js')))
-    .pipe(gulpif(isThisProduction(), uglify()))
-    .pipe(gulpif(isThisProduction(), rev()))
+    .pipe(gulpif(isProduction(), concat('app.js')))
+    .pipe(gulpif(isProduction(), uglify()))
+    .pipe(gulpif(isProduction(), rev()))
     .pipe(gulp.dest(scriptsDestFolder))
-    .pipe(gulpif(isThisProduction(), rev.manifest(getRevManifestPath('app'))))
-    .pipe(gulpif(isThisProduction(), gulp.dest(configFolder)))
+    .pipe(gulpif(isProduction(), rev.manifest(getRevManifestPath('app'))))
+    .pipe(gulpif(isProduction(), gulp.dest(configFolder)))
     .pipe(livereload())
 );
 
@@ -147,15 +147,15 @@ const mergeVendorScripts = () => promisifyTask(
   gulp.src(vendorScripts)
     .pipe(plumber())
     .pipe(concat('vendor.js'))
-    .pipe(gulpif(isThisProduction(), rev()))
+    .pipe(gulpif(isProduction(), rev()))
     .pipe(gulp.dest(scriptsDestFolder))
-    .pipe(gulpif(isThisProduction(), rev.manifest(getRevManifestPath('vendor'))))
-    .pipe(gulpif(isThisProduction(), gulp.dest(configFolder)))
+    .pipe(gulpif(isProduction(), rev.manifest(getRevManifestPath('vendor'))))
+    .pipe(gulpif(isProduction(), gulp.dest(configFolder)))
     .pipe(livereload())
 );
 
 const gzipCode = () => {
-  if (isThisProduction()) {
+  if (isProduction()) {
     return Promise.all([
       gzipCss(),
       gzipJs(),

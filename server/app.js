@@ -8,10 +8,10 @@ import exphbs from 'express-handlebars';
 import fs from 'fs';
 import bunyan from 'bunyan';
 
+import util from './util';
 import mainConfig from '../config/main';
-import routes from './routes/index';
+import homepageCtrl from './controllers/homepageCtrl';
 
-const env = process.env.NODE_ENV || 'development';
 const configFolder = path.join(__dirname, '../config');
 const viewsFolder = path.join(__dirname, '/views');
 const publicFolder = path.join(__dirname, '../public');
@@ -24,8 +24,8 @@ const bunyanConfig = {
 const log = bunyan(bunyanConfig);
 const app = express();
 
-app.locals.ENV = env;
-app.locals.ENV_DEVELOPMENT = env === 'development';
+app.locals.ENV = util.env;
+app.locals.ENV_DEVELOPMENT = !util.isProduction();
 app.locals.appName = mainConfig.appName;
 
 // view engine setup
@@ -52,14 +52,16 @@ app.set('view engine', 'handlebars');
 ].forEach((obj) => {
   let manifest = `${obj.key}.${obj.extension}`;
   const file = `${configFolder}/rev-manifest-${obj.key}.json`;
-  try {
-    const data = fs.readFileSync(file, 'utf8');
-    if (data) {
-      const parsed = JSON.parse(data);
-      manifest = parsed[`${obj.key}.${obj.extension}`];
+  if (util.isProduction()) {
+    try {
+      const data = fs.readFileSync(file, 'utf8');
+      if (data) {
+        const parsed = JSON.parse(data);
+        manifest = parsed[`${obj.key}.${obj.extension}`];
+      }
+    } catch (error) {
+      log.error(`Error reading file ${file}`);
     }
-  } catch (error) {
-    log.error(`Error reading file ${file}`);
   }
   app.locals[`rev-${obj.key}`] = manifest;
 });
@@ -76,7 +78,7 @@ app.use(bodyParser.urlencoded({
 app.use(cookieParser());
 app.use(express.static(publicFolder));
 
-app.use('/', routes);
+app.use('/', homepageCtrl);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
@@ -86,7 +88,7 @@ app.use((req, res, next) => {
 });
 
 // error handlers
-if (app.get('env') === 'development') {
+if (!util.isProduction()) {
   // development error handler
   // will print stacktrace
   app.use((err, req, res) => {

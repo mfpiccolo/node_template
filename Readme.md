@@ -55,3 +55,4 @@ _Credits to [LearnCode.academy](https://www.youtube.com/user/learncodeacademy)_
 ## Todos
 - [x] Add tests for controllers
 - [ ] Find a good way to successfuly test the whole flow (BDD)
+- [ ] Create generators for code (e.g.: npm run generate controller user)

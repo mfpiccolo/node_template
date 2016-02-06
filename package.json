@@ -7,7 +7,8 @@
     "bower": "./node_modules/bower/bin/bower install",
     "dev": "node ./node_modules/gulp/bin/gulp.js serve",
     "build": "node ./node_modules/gulp/bin/gulp.js build",
-    "lint": "node ./node_modules/gulp/bin/gulp.js lint"
+    "lint": "node ./node_modules/gulp/bin/gulp.js lint",
+    "test": "./node_modules/mocha/bin/mocha --require babel-core/register"
   },
   "dependencies": {
     "babel": "^6.3.26",
@@ -31,6 +32,8 @@
   "devDependencies": {
     "babel-eslint": "^5.0.0-beta8",
     "bower": "^1.7.7",
+    "chai": "^3.5.0",
+    "chai-as-promised": "^5.2.0",
     "del": "^2.2.0",
     "eslint": "^1.10.3",
     "eslint-config-airbnb": "^5.0.0",
@@ -54,6 +57,8 @@
     "gulp-sourcemaps": "^1.6.0",
     "gulp-uglify": "^1.5.1",
     "imagemin-pngquant": "^4.2.0",
-    "through2": "^2.0.0"
+    "mocha": "^2.4.5",
+    "sinon": "^1.17.3",
+    "sinon-chai": "^2.8.0"
   }
 }

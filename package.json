@@ -7,6 +7,7 @@
     "bower": "./node_modules/bower/bin/bower install",
     "dev": "node ./node_modules/gulp/bin/gulp.js serve",
     "build": "node ./node_modules/gulp/bin/gulp.js build",
+    "build:prod": "node ./node_modules/gulp/bin/gulp.js build:prod",
     "lint": "node ./node_modules/gulp/bin/gulp.js lint",
     "test": "./node_modules/mocha/bin/mocha --require babel-core/register"
   },

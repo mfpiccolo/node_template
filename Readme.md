@@ -32,14 +32,15 @@ This will compile your frontend code from `src` and put it into `public` folder.
 You can force production build with `npm run build:prod`.
 
 Differences between `development` and `production`:
+
 |                       | development | production |
-| --------------------- |:-----------:| ----------:|
+| --------------------- |:----------- |:---------- |
 | compile js with babel | yes         | yes        |
 | js source maps        | yes         | no         |
 | minified compiled js  | no          | yes        |
 | compile scss          | yes         | yes        |
 | atuo-prefixed css     | no          | yes        |
-| scss source mas       | yes         | no         |
+| scss source maps      | yes         | no         |
 | minified css          | no          | yes        |
 | versioned assets      | no          | yes        |
 

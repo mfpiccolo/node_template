@@ -9,8 +9,8 @@ import fs from 'fs';
 import bunyan from 'bunyan';
 
 import util from './util';
+import routes from './routes';
 import mainConfig from '../config/main';
-import homepageCtrl from './controllers/homepageCtrl';
 
 const configFolder = path.join(__dirname, '../config');
 const viewsFolder = path.join(__dirname, '/views');
@@ -20,7 +20,6 @@ const bunyanConfig = {
   level: mainConfig.logLevel,
   stream: process.stdout,
 };
-
 const log = bunyan(bunyanConfig);
 const app = express();
 
@@ -78,7 +77,28 @@ app.use(bodyParser.urlencoded({
 app.use(cookieParser());
 app.use(express.static(publicFolder));
 
-app.use('/', homepageCtrl);
+// init routes
+routes.forEach((route) => {
+  /*eslint-disable*/
+  const router = express.Router();
+  /*eslint-enable*/
+  switch (route.type) {
+    case 'POST':
+      router.get(route.path, route.controller.post);
+      break;
+    case 'PUT':
+      router.get(route.path, route.controller.put);
+      break;
+    case 'DELETE':
+      router.get(route.path, route.controller.delete);
+      break;
+    case 'GET':
+    default:
+      router.get(route.path, route.controller.get);
+      break;
+  }
+  app.use(route.path, router);
+});
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {

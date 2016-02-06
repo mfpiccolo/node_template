@@ -228,8 +228,8 @@ const develop = () => {
     script: 'index',
     ext: 'js handlebars coffee',
     stdout: false,
-  }).on('readable', () => {
-    this.stdout.on('data', function (chunk) {
+  }).on('readable', function () {
+    this.stdout.on('data', chunk => {
       if (/^Express server listening on port/.test(chunk)) {
         livereload.changed(__dirname);
       }

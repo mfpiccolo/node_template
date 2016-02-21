@@ -1,19 +1,16 @@
-(async function () {
+/* eslint-disable no-console */
+async function liftoff() {
   let seconds = 3;
 
   const printOutArgs = (arr) => {
-    /*eslint-disable*/
     console.log(...arr);
-    /*eslint-enable*/
   };
 
   const countdown = (resolve) => {
     if (seconds === 0) {
       return resolve();
     }
-    /*eslint-disable*/
     console.log(seconds--);
-    /*eslint-enable*/
     return setTimeout(() => {
       countdown(resolve);
     }, 1000);
@@ -27,4 +24,6 @@
 
   await doTheCountdown();
   printOutArgs('We have LIFTOFF!');
-}());
+}
+
+liftoff();

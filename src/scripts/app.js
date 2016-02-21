@@ -1,4 +1,4 @@
-(async function justDoIt() {
+(async function () {
   let seconds = 3;
 
   const printOutArgs = (arr) => {
@@ -14,7 +14,7 @@
     /*eslint-disable*/
     console.log(seconds--);
     /*eslint-enable*/
-    setTimeout(() => {
+    return setTimeout(() => {
       countdown(resolve);
     }, 1000);
   };

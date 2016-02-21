@@ -9,7 +9,7 @@
     "build": "node ./node_modules/gulp/bin/gulp.js build",
     "build:prod": "node ./node_modules/gulp/bin/gulp.js build:prod",
     "lint": "node ./node_modules/gulp/bin/gulp.js lint",
-    "test": "./node_modules/mocha/bin/mocha --require babel-core/register"
+    "test": "node ./node_modules/gulp/bin/gulp.js lint && ./node_modules/mocha/bin/mocha --require babel-core/register"
   },
   "dependencies": {
     "babel": "^6.3.26",

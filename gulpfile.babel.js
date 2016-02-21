@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import _ from 'lodash';
 import del from 'del';
 import pngquant from 'imagemin-pngquant';
@@ -55,7 +56,8 @@ const cleanup = (done) => del(
 gulp.task('cleanup', cleanup);
 
 const buildSass = () => promisifyTask(
-  gulp.src(`${stylesSrcFolder}/*.scss`)
+  gulp
+    .src(`${stylesSrcFolder}/*.scss`)
     .pipe(plumber())
     .pipe(gulpif(!isProduction(), sourcemaps.init()))
     .pipe(sass())
@@ -76,7 +78,8 @@ const buildSass = () => promisifyTask(
 gulp.task('sass', buildSass);
 
 const babelify = () => promisifyTask(
-  gulp.src(`${scriptsSrcFolder}/**/*.js`)
+  gulp
+    .src(`${scriptsSrcFolder}/**/*.js`)
     .pipe(plumber())
     .pipe(eslint())
     .pipe(eslint.format())
@@ -97,7 +100,8 @@ const babelify = () => promisifyTask(
 gulp.task('babelify', babelify);
 
 const gzipAssets = (source, destination) => promisifyTask(
-  gulp.src(source)
+  gulp
+    .src(source)
     .pipe(plumber())
     .pipe(clone())
     .pipe(gzip({
@@ -121,12 +125,14 @@ gulp.task('gzipJs', gzipJs);
 
 const copyImages = () => {
   const faviconDestination = `${sourceFolder}/favicon.ico`;
-  gulp.src(faviconDestination)
+  gulp
+    .src(faviconDestination)
     .pipe(plumber())
     .pipe(gulp.dest(publicFolder));
   const imagesDestination = `${publicFolder}/images`;
   return promisifyTask(
-    gulp.src(`${sourceFolder}/images/*`)
+    gulp
+      .src(`${sourceFolder}/images/*`)
       .pipe(newer(imagesDestination))
       .pipe(plumber())
       .pipe(imagemin({
@@ -144,7 +150,8 @@ const copyImages = () => {
 gulp.task('copyImages', copyImages);
 
 const mergeVendorScripts = () => promisifyTask(
-  gulp.src(vendorScripts)
+  gulp
+    .src(vendorScripts)
     .pipe(plumber())
     .pipe(concat('vendor.js'))
     .pipe(gulpif(isProduction(), rev()))
@@ -228,7 +235,7 @@ const develop = () => {
     script: 'index',
     ext: 'js handlebars coffee',
     stdout: false,
-  }).on('readable', function () {
+  }).on('readable', function nodemonCb() {
     this.stdout.on('data', chunk => {
       if (/^Express server listening on port/.test(chunk)) {
         livereload.changed(__dirname);
@@ -239,16 +246,18 @@ const develop = () => {
   });
 };
 
-gulp.task('lint', () => gulp.src(
-  [
-    `${scriptsSrcFolder}/**/*.js`,
-    'server/**/*.js',
-  ]
-  )
-  .pipe(eslint())
-  .pipe(eslint.format())
-  .pipe(eslint.failAfterError())
-);
+gulp
+  .task('lint', () => gulp
+    .src([
+      'index.js',
+      'gulpfile.babel.js',
+      `${scriptsSrcFolder}/**/*.js`,
+      'server/**/*.js',
+    ])
+    .pipe(eslint())
+    .pipe(eslint.format())
+    .pipe(eslint.failAfterError())
+  );
 
 gulp.task('develop', develop);
 

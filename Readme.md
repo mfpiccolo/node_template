@@ -9,7 +9,7 @@ __project-bootstrap__ aims to give developer a clean bootstrapped project which 
 
 ## Requirements
 
-NodeJs version ~5.3.0
+NodeJs version ~5.6.0
 
 Run `npm install && npm run bower`
 

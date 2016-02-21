@@ -27,7 +27,7 @@ You think you have finished and you are ready to deploy? Run:
 
 `npm run build`
 
-This will compile your frontend code from `src` and put it into `public` folder. It will also minify and copy all the images from `src/images` to `public/images`. Be aware that __build__ command reads the `NODE_ENV` variable and based on the setting it builds the appropriate version of your assets. Set `NODE_ENV=production` to deploy production version of your code.
+This will compile your frontend code from `src` and put it into `public` folder. It will also minify and copy all the images from `src/images` to `public/images`. Be aware that __build__ command reads the `NODE_ENV` variable and based on the setting it builds the appropriate version of your assets. Set `NODE_ENV=production` to build production version of your code.
 
 You can force production build with `npm run build:prod`.
 

@@ -1,10 +1,6 @@
 /* eslint-disable no-console */
-async function liftoff() {
+function liftoff() {
   let seconds = 3;
-
-  const printOutArgs = (arr) => {
-    console.log(...arr);
-  };
 
   const countdown = (resolve) => {
     if (seconds === 0) {
@@ -16,14 +12,15 @@ async function liftoff() {
     }, 1000);
   };
 
-  async function doTheCountdown() {
+  function doTheCountdown() {
     return new Promise(resolve => {
       countdown(resolve);
     });
   }
 
-  await doTheCountdown();
-  printOutArgs('We have LIFTOFF!');
+  doTheCountdown().then(() => {
+    console.log(...'We have LIFTOFF!');
+  });
 }
 
 liftoff();

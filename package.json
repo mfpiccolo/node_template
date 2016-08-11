@@ -3,13 +3,8 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "start": "node index | ./node_modules/bunyan/bin/bunyan",
-    "bower": "./node_modules/bower/bin/bower install",
-    "dev": "node ./node_modules/gulp/bin/gulp.js serve",
-    "build": "node ./node_modules/gulp/bin/gulp.js build",
-    "build:prod": "node ./node_modules/gulp/bin/gulp.js build:prod",
-    "lint": "node ./node_modules/gulp/bin/gulp.js lint",
-    "test": "node ./node_modules/gulp/bin/gulp.js lint && ./node_modules/mocha/bin/mocha --require babel-core/register"
+    "start": "flow . && babel --out-dir dist server && node ./node_modules/gulp/bin/gulp.js serve",
+    "test": "flow . && babel --out-dir dist server && node ./node_modules/gulp/bin/gulp.js lint && ./node_modules/mocha/bin/mocha --require babel-core/register"
   },
   "dependencies": {
     "babel": "^6.3.26",
@@ -30,13 +25,13 @@
     "express": "^4.13.4",
     "express-bunyan-logger": "^1.2.0",
     "express-handlebars": "^3.0.0",
+    "gulp-flowtype": "^1.0.0",
     "lodash": "^4.1.0",
     "serve-favicon": "^2.3.0"
   },
   "devDependencies": {
     "babel-plugin-transform-flow-strip-types": "^6.8.0",
     "babel-plugin-typecheck": "^3.9.0",
-    "bower": "^1.7.7",
     "chai": "^3.5.0",
     "chai-as-promised": "^5.2.0",
     "del": "^2.2.0",

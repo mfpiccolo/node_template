@@ -21,7 +21,7 @@ import newer from 'gulp-newer';
 import eslint from 'gulp-eslint';
 
 let env = process.env.NODE_ENV || 'development';
-const serverFolder = 'server';
+const serverFolder = 'dist';
 const sourceFolder = 'src';
 const publicFolder = 'public';
 const configFolder = 'config';
@@ -86,6 +86,7 @@ const babelify = () => promisifyTask(
     .pipe(gulpif(!isProduction(), sourcemaps.init()))
     .pipe(babel({
       presets: ['es2015', 'stage-3'],
+      plugins: ['typecheck', 'syntax-flow', 'transform-flow-strip-types'],
     }))
     .pipe(sourcemaps.write('.'))
     .pipe(gulpif(isProduction(), concat('app.js')))

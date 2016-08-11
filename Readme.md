@@ -11,8 +11,6 @@ __project-bootstrap__ aims to give developer a clean bootstrapped project which 
 
 NodeJs version ~5.6.0
 
-Run `npm install && npm run bower`
-
 ## Development
 
 When you are ready to start developing simply run:

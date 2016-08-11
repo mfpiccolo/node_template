@@ -1,0 +1,10 @@
+[ignore]
+.*/src/.*
+.*/node_modules/gulp-flowtype/*
+
+[include]
+./build_flow
+
+[libs]
+
+[options]
